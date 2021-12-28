@@ -1,10 +1,6 @@
-// liking this 18:50:32 UTC
+// pokula  this 19:09:08 UTC
 
 #include <unistd.h>
-
-
-
-// good interim edit 18:33z
 
 #if 0
 Tue 28 Dec 17:41:07 UTC 2021
@@ -454,7 +450,7 @@ int test_program_a(void) {
     newline();
     space_it();
     
-    char buffer[32];
+    char buffer[48]; // 32 also 64
     char* buf_ptr;
 
     buffer[0] = 'a';
@@ -502,33 +498,43 @@ int test_program_a(void) {
     memcpy(buffering, buf_ptr, sizeof buffer);
     print_buffer();
 
-
     // extra copy:
     buf_size = sizeof(buffer); // captures "abc\000" size
-
 
     sprintf(buf_ptr, "%d\n", buf_size); // related to string length, possibly
     buf_ptr = * & buffer;
     memcpy(buffering,buf_ptr, sizeof buffer);
-    print_buffer();
-
-
-
+    print_buffer(); // 32
 
     // printf(buf_ptr);
 
-    printf("%s", "           strlen(buffer)  is ");
+    sprintf(buf_ptr, "%s", "         strlen(buffer)  is ");
+    buf_ptr = * & buffer;
+    memcpy(buffering, buf_ptr, sizeof buffer);
+    print_buffer();
 
     sprintf(buf_ptr, " %d\n", buf_len); // related to string length, possibly
-    printf(buf_ptr);
+    buf_ptr = * & buffer;
+    memcpy(buffering, buf_ptr, sizeof buffer);
+    print_buffer();
+
+    // printf(buf_ptr);
 
     uint8_t adrs;
     adrs = (uint8_t) & buf_ptr;
 
-    printf("%s", "adrs (& buf_ptr) in hex is      ");
+    sprintf(buf_ptr, "%s", "adrs (& buf_ptr) in hex is      ");
+    buf_ptr = * & buffer;
+    memcpy(buffering, buf_ptr, sizeof buffer);
+    print_buffer();
+
     // print the buffer's address in ram
-    sprintf(buf_ptr, "0x%.8X", adrs);
-    printf(buf_ptr);
+    sprintf(buf_ptr, "0x%.8X\n", adrs);
+    buf_ptr = * & buffer;
+    memcpy(buffering, buf_ptr, sizeof buffer);
+    print_buffer();
+
+    // printf(buf_ptr);
 
 /*
     printf("%s", "\nadrs (& buf_ptr) in decimal is ");
