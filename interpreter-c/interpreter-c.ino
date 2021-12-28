@@ -1,6 +1,6 @@
 // kerbalfourpair
 // TESTED and LOOKS GOOD
-// Tue 28 Dec 21:15:30 UTC 2021
+// Tue 28 Dec 21:25:39 UTC 2021
 
 #if 0
 
@@ -305,6 +305,25 @@ void rdumps() {
 /* ******************************************** */
 /* Beginning of application words */
 
+/* test program */
+
+char buffering[64];
+
+void print_buffer(void) {
+    Serial.print(buffering);
+}
+
+void space_it(void) {
+      sprintf(buffering, "%c", ' ');
+      print_buffer();
+}
+
+void newline(void) {
+      sprintf(buffering, "%c", '\n');
+      print_buffer();
+}
+
+
 NAMED(_testpa, "testpa");
 void testpa(void) {
       newline();
@@ -502,25 +521,6 @@ void runword() {
       return;
     }
     Serial.println("?");
-}
-
-
-/* test program */
-
-char buffering[64];
-
-void print_buffer(void) {
-    Serial.print(buffering);
-}
-
-void space_it(void) {
-      sprintf(buffering, "%c", ' ');
-      print_buffer();
-}
-
-void newline(void) {
-      sprintf(buffering, "%c", '\n');
-      print_buffer();
 }
 
 
