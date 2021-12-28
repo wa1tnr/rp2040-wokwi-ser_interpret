@@ -1,3 +1,5 @@
+// good interim edit 18:33z
+
 #if 0
 Tue 28 Dec 17:41:07 UTC 2021
 
@@ -426,20 +428,29 @@ void runword() {
 // #include <stdint.h>
 // #include <string.h> // strlen only
 
-void space_it(void) {
-    printf("%c", ' ');
+char buffering[64];
+
+void print_buffer(void) {
+  Serial.print(buffering);
 }
 
+void space_it(void) {
+    sprintf(buffering, "%c", ' ');
+    // Serial.print(buffering);
+    print_buffer();
+} // good 18:06 UTC 28 Dec 2021
+
 void newline(void) {
-    printf("%c", '\n');
+    sprintf(buffering, "%c", '\n');
+    print_buffer();
 }
 
 int test_program_a(void) {
     newline();
+    space_it();
+    
     char buffer[32];
     char* buf_ptr;
-
-    /* ssize_t write(int fd, const void *buf, size_t count); */
 
     buffer[0] = 'a';
     buffer[1] = 'b';
@@ -447,7 +458,6 @@ int test_program_a(void) {
     buffer[3] = '\000';
 
     buf_ptr = buffer;
-
 
     int buf_size, buf_ptr_size;
 
@@ -458,34 +468,65 @@ int test_program_a(void) {
 
     size_t gottem;
 
-    printf("%s ", "is the buffer contents");
 
-    gottem = write(1, buf_ptr, sizeof(buf_ptr));
+    sprintf(buffering, "%c", '\'');
+    print_buffer();
 
+    memcpy(buffering, buf_ptr, sizeof buffer);
+    print_buffer();
+
+
+    sprintf(buffering, "%c", '\'');
+    print_buffer();
+
+
+
+    sprintf(buffering, "%s ", " is the buffer contents");
+    print_buffer();
+
+
+
+    // gottem = write(1, buf_ptr, sizeof(buf_ptr));
+
+    // gottem = 1;
     sprintf(buf_ptr, "\n           sizeof(buf_ptr) is  %d", buf_ptr_size);
-    printf(buf_ptr);
+    // memcpy dest source size:
+    buf_ptr = * & buffer; // way overdone - a test only.
+    memcpy (buffering, buf_ptr, sizeof buffer );
+    // printf(buf_ptr);
+    print_buffer();
 
-    printf("%s", "\n           sizeof(buffer)  is ");
+
+    sprintf(buf_ptr, "%s", "\n           sizeof(buffer)  is ");
+    buf_ptr = * & buffer;
+    memcpy(buffering, buf_ptr, sizeof buffer);
+    print_buffer();
+
     sprintf(buf_ptr, "%d\n", buf_size); // related to string length, possibly
-    printf(buf_ptr);
+    buf_ptr = * & buffer;
+    memcpy(buffering,buf_ptr, sizeof buffer);
+    print_buffer();
+
+    // printf(buf_ptr);
 
     printf("%s", "           strlen(buffer)  is ");
 
     sprintf(buf_ptr, " %d\n", buf_len); // related to string length, possibly
     printf(buf_ptr);
 
-    uint64_t adrs;
-    adrs = (uint64_t) & buf_ptr;
+    uint8_t adrs;
+    adrs = (uint8_t) & buf_ptr;
 
     printf("%s", "adrs (& buf_ptr) in hex is      ");
     // print the buffer's address in ram
     sprintf(buf_ptr, "0x%.8X", adrs);
     printf(buf_ptr);
 
+/*
     printf("%s", "\nadrs (& buf_ptr) in decimal is ");
     sprintf(buf_ptr, "%.11u\n\n", adrs);
-
     printf(buf_ptr);
+*/
 }
 
 #if 0
@@ -504,7 +545,10 @@ void setup() {
   while (!Serial);
   Serial.println ("Forth-like interpreter:");
   words();
-  Serial.println();
+  Serial.println(" ");
+  Serial.println("NOT_READY");
+  test_program_a();
+  Serial.println("READY");
 }
 
 void loop() {
