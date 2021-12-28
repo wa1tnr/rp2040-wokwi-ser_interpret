@@ -1,5 +1,14 @@
 #if 0
-Tue 28 Dec 16:21:29 UTC 2021
+Tue 28 Dec 17:39:39 UTC 2021
+
+  ok 640 dump \ dumps the terminal input buffer area
+  
+  test with:
+  ok 199 198 197 196 640 dump cr cr .s cr cr
+  
+  (never type 'ok' yourself - it's the forth prompt)
+  
+  Note: the 'ok' word was just updated - did not see the ENTER keypress, prior.
 
   for wokwi Uno simulator:
   [ https://wokwi.com/arduino/new?template=arduino-uno ]
@@ -355,7 +364,7 @@ int number() {
 char ch;
 
 void ok() {
-  if (ch == '\r') Serial.println("ok");
+  if (ch == '\n') Serial.println("ok");
 }
 
 /* Incrementally read command line from serial port */
