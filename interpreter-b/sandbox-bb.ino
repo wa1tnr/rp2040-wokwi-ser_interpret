@@ -1,6 +1,10 @@
 #if 0
 Tue 28 Dec 16:21:29 UTC 2021
 
+  for wokwi Uno simulator:
+  [ https://wokwi.com/arduino/new?template=arduino-uno ]
+
+  upstream code - primary author:
   [ https://github.com/CharleyShattuck/Feather-M0-interpreter ]
 
    Tiny interpreter,
