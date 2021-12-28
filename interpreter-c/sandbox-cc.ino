@@ -2,6 +2,12 @@
 
 #include <unistd.h>
 
+#define lcl_printf() \
+      buf_ptr = * & buffer; \
+      memcpy(buffering, buf_ptr, sizeof buffer); \
+      print_buffer();
+
+
 #if 0
 Tue 28 Dec 17:41:07 UTC 2021
 
