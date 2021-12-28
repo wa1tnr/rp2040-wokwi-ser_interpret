@@ -1,4 +1,6 @@
-// Tue 28 Dec 12:12:42 UTC 2021
+// Tue 28 Dec 12:46:35 UTC 2021
+
+UNTESTED - this comment breaks compiler on purpose ;)
 
 /* boilerplate .INO program wokwi:
 
@@ -16,7 +18,6 @@ void loop() {
 }
 */
 
-UNTESTED - this comment breaks compiler on purpose ;)
 
 /* Tiny interpreter,
    similar to myforth's Standalone Interpreter
@@ -155,15 +156,15 @@ void negate() {
 /* destructively display top of stack, decimal */
 NAMED(_dot, ".");
 void dot() {
-  Serial.print(pop());
-  Serial.print(" ");
+  Serial1.print(pop());
+  Serial1.print(" ");
 }
 
 /* destructively display top of stack, hex */
 NAMED(_dotHEX, ".h");
 void dotHEX() {
-  Serial.print(0xffff & pop(), HEX);
-  Serial.print(" ");
+  Serial1.print(0xffff & pop(), HEX);
+  Serial1.print(" ");
 }
 
 /* display whole stack, hex */
@@ -240,20 +241,20 @@ void dumpRAM() {
   int p = pop();
   ram = (char*)p;
   sprintf(buffer, "%4x", p);
-  Serial.print(buffer);
-  Serial.print("   ");
+  Serial1.print(buffer);
+  Serial1.print("   ");
   for (int i = 0; i < 16; i++) {
     char c = *ram++;
     sprintf(buffer, " %2x", (c & 0xff));
-    Serial.print(buffer);
+    Serial1.print(buffer);
   }
   ram = (char*)p;
-  Serial.print("   ");
+  Serial1.print("   ");
   for (int i = 0; i < 16; i++) {
     buffer[0] = *ram++;
     if (buffer[0] > 0x7f || buffer[0] < ' ') buffer[0] = '.';
     buffer[1] = '\0';
-    Serial.print(buffer);
+    Serial1.print(buffer);
   }
   push(p + 16);
 }
@@ -262,7 +263,7 @@ void dumpRAM() {
 NAMED(_dumpr, "dump");
 void rdumps() {
   for (int i = 0; i < 16; i++) {
-    Serial.println();
+    Serial1.println();
     dumpRAM();
   }
 }
@@ -324,8 +325,8 @@ const int entries = sizeof dictionary / sizeof dictionary[0];
 void words() {
   for (int i = entries - 1; i >= 0; i--) {
     strcpy(namebuf, dictionary[i].name);
-    Serial.print(namebuf);
-    Serial.print(" ");
+    Serial1.print(namebuf);
+    Serial1.print(" ");
   }
 }
 
@@ -356,15 +357,15 @@ int number() {
 char ch;
 
 void ok() {
-  if (ch == '\r') Serial.println("ok");
+  if (ch == '\r') Serial1.println("ok");
 }
 
 /* Incrementally read command line from serial port */
 byte reading() {
-  if (!Serial.available()) return 1;
-  ch = Serial.read();
-  if (ch == '\n') return 1;
-  if (ch == '\r') return 0;
+  if (!Serial1.available()) return 1;
+  ch = Serial1.read();
+  if (ch == '\r') return 1;
+  if (ch == '\n') return 0;
   if (ch == ' ') return 0;
   if (pos < maxtib) {
     tib[pos++] = ch;
@@ -379,8 +380,8 @@ void readword() {
   pos = 0;
   tib[0] = 0;
   while (reading());
-  Serial.print(tib);
-  Serial.print(" ");
+  Serial1.print(tib);
+  Serial1.print(" ");
 }
 
 /* Run a word via its name */
@@ -396,17 +397,17 @@ void runword() {
     ok();
     return;
   }
-  Serial.println("?");
+  Serial1.println("?");
 }
 
 /* Arduino main loop */
 
 void setup() {
-  Serial.begin(9600);
-  while (!Serial);
-  Serial.println ("Forth-like interpreter:");
+  Serial1.begin(9600);
+  // while (!Serial1);
+  Serial1.println ("Forth-like interpreter:");
   words();
-  Serial.println();
+  Serial1.println();
 }
 
 void loop() {
