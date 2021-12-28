@@ -1,5 +1,5 @@
 #if 0
-Tue 28 Dec 16:10:20 UTC 2021
+Tue 28 Dec 16:21:29 UTC 2021
 
   [ https://github.com/CharleyShattuck/Feather-M0-interpreter ]
 
@@ -138,6 +138,12 @@ void invert() {
 NAMED(_negate, "negate");
 void negate() {
   TOS = -(TOS);
+}
+
+/* print carriage return */
+NAMED(_cr, "cr");
+void cr() {
+  Serial.print('\n');
 }
 
 /* destructively display top of stack, decimal */
@@ -289,6 +295,7 @@ const entry dictionary[] = {
   {_xor, xor_},
   {_invert, invert},
   {_negate, negate},
+  {_cr, cr},
   {_dotS, dotS},
   {_dotShex, dotShex},
   {_dot, dot},
