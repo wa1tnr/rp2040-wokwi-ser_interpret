@@ -456,7 +456,7 @@ int test_program_a(void) {
 
     int buf_len = strlen(buffer);
 
-    ssize_t gottem;
+    size_t gottem;
 
     printf("%s ", "is the buffer contents");
 
