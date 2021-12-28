@@ -1,8 +1,12 @@
 // veccahmaaf
-// Tue 28 Dec 21:43:45 UTC 2021
-// accompanying circuit
-//  12 output 12 wiggle 11 output 11 wiggle
+// Tue 28 Dec 22:16:33 UTC 2021
+
+// +accompanying circuit
+
 #if 0
+   [ 13 output 12 output 11 output 13 wiggle 12 wiggle 11 wiggle cr .s cr dump cr 12 wiggle 11 wiggle cr dump ]
+
+     tib was near 0x3b0 28 Dec 22:12z
 
 for wokwi Uno simulator:
 
