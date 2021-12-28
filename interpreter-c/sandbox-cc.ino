@@ -23,6 +23,12 @@ Tue 28 Dec 17:41:07 UTC 2021
 
 #endif
 
+/* test program includes */
+#include <stdio.h>
+#include <unistd.h>
+#include <stdint.h>
+#include <string.h> // strlen only
+
 /* Structure of a dictionary entry */
 typedef struct {
   const char *name;
