@@ -1,6 +1,6 @@
-// macro was very good
+// kerbalfourpair
+// Tue 28 Dec 21:08:37 UTC 2021
 
-// pokula  this 19:09:08 UTC
 
 #if 0
 
