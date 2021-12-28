@@ -1,6 +1,7 @@
+// ino file
 // Tue 28 Dec 12:46:35 UTC 2021
 
-UNTESTED - this comment breaks compiler on purpose ;)
+// UNTESTED - this comment breaks compiler on purpose ;)
 
 /* boilerplate .INO program wokwi:
 
@@ -403,7 +404,7 @@ void runword() {
 /* Arduino main loop */
 
 void setup() {
-  Serial1.begin(9600);
+  Serial1.begin(115200);
   // while (!Serial1);
   Serial1.println ("Forth-like interpreter:");
   words();
