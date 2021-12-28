@@ -1,4 +1,4 @@
-/* Tue 28 Dec 16:02:34 UTC 2021 */
+/* Tue 28 Dec 16:10:20 UTC 2021 */
 
 /* local boilerplate works okay
 void setup(void) {
@@ -190,9 +190,9 @@ void wiggle() {
   pinMode(a, OUTPUT);
   for (int i = 0; i < 20; i++) {
     digitalWrite(a, HIGH);
-    delay(100);
+    delay(20);
     digitalWrite(a, LOW);
-    delay(100);
+    delay(400);
   }
 }
 
