@@ -1,7 +1,7 @@
-// kerbalfourpair
-// TESTED and LOOKS GOOD
-// Tue 28 Dec 21:25:39 UTC 2021
-
+// veccahmaaf
+// Tue 28 Dec 21:43:45 UTC 2021
+// accompanying circuit
+//  12 output 12 wiggle 11 output 11 wiggle
 #if 0
 
 for wokwi Uno simulator:
@@ -539,4 +539,6 @@ void loop() {
     readword();
     runword();
 }
-/* END */ /* UNTESTED EDIT */
+
+/* TESTED EDIT */
+/* END */
