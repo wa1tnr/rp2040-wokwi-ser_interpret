@@ -2,15 +2,6 @@ DOES NOT COMPILE - provides boilerplate for working Serial Monitor, possibly.
 
 {
   "version": 1,
-  "author": "Anonymous maker",
-  "editor": "wokwi",
-  "parts": [ { "id": "pico", "type": "wokwi-pi-pico" } ],
-  "connections": [ [ "pico:GP0", "$serialMonitor:RX", "" ], [ "pico:GP1", "$serialMonitor:TX", "" ] ],
-  "serialMonitor": { "display": "terminal", "newline": "lf" }
-}
-
-{
-  "version": 1,
   "author": "wa1tnr",
   "editor": "wokwi",
   "old_uri": "https://github.com/wa1tnr/tkm0_7seg-b/blob/dvlp-aa/ardn/sreg/shf_reg_gg/wokwi.d/n_wokwi-rp2040-sreg-ee-rot-180.json ",
@@ -85,8 +76,8 @@ DOES NOT COMPILE - provides boilerplate for working Serial Monitor, possibly.
     [ "pico:GND.8", "sr2:GND", "black", [ "h100", "v500", "h-1240", "v-170", "h16" ] ],
     [ "pico:GND.8", "sr3:GND", "black", [ "h100", "v500", "h-1240", "v-170", "h16" ] ],
 
-    [ "pico:GP0", "$serialMonitor:RX", "", [] ],
-    [ "pico:GP1", "$serialMonitor:TX", "", [] ],
+    [ "pico:GP0", "$serialMonitor:RX", "" ],
+    [ "pico:GP1", "$serialMonitor:TX", "" ],
 
     [ "pico:GP2", "sr1:STCP", "blue", [ "h-50", "v444", "h2", "v1", "h0" ] ],
     [ "pico:GP3", "sr1:SHCP", "yellow", [ "h-40", "v454", "h2", "v1", "h0" ] ],
@@ -250,5 +241,6 @@ DOES NOT COMPILE - provides boilerplate for working Serial Monitor, possibly.
     [ "sevseg3:DIG3", "r22:1", "blue", [ "v-120", "h-1" ] ],
     [ "sevseg3:DIG2", "r23:1", "violet", [ "v-130", "h20" ] ], 
     [ "sevseg3:DIG1", "r24:1", "gray", [ "v-140", "h20" ] ]
-  ]
+  ],
+  "serialMonitor": { "display": "terminal", "newline": "lf" }
 }
