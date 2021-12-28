@@ -1,3 +1,14 @@
+DOES NOT COMPILE - provides boilerplate for working Serial Monitor, possibly.
+
+{
+  "version": 1,
+  "author": "Anonymous maker",
+  "editor": "wokwi",
+  "parts": [ { "id": "pico", "type": "wokwi-pi-pico" } ],
+  "connections": [ [ "pico:GP0", "$serialMonitor:RX", "" ], [ "pico:GP1", "$serialMonitor:TX", "" ] ],
+  "serialMonitor": { "display": "terminal", "newline": "lf" }
+}
+
 {
   "version": 1,
   "author": "wa1tnr",
