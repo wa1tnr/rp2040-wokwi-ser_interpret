@@ -1,25 +1,14 @@
-/* Tue 28 Dec 16:10:20 UTC 2021 */
+#if 0
+Tue 28 Dec 16:10:20 UTC 2021
 
-/* local boilerplate works okay
-void setup(void) {
-  Serial.begin(9600);
-  Serial.println("hhh");
-}
-void loop(void) {
-  if (Serial.available()) {
-    char ch = Serial.read();
-    Serial.print(ch);
-  }
-}
-*/
+  [ https://github.com/CharleyShattuck/Feather-M0-interpreter ]
 
-/*
- *  [ https://github.com/CharleyShattuck/Feather-M0-interpreter ]
- */
-
-/* Tiny interpreter,
+   Tiny interpreter,
    similar to myforth's Standalone Interpreter
-   This example code is in the public domain */
+
+   This example code is in the public domain
+
+#endif
 
 /* Structure of a dictionary entry */
 typedef struct {
