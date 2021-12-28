@@ -1,3 +1,5 @@
+// macro was very good
+
 // pokula  this 19:09:08 UTC
 
 #include <unistd.h>
@@ -493,60 +495,76 @@ int test_program_a(void) {
 
     sprintf(buf_ptr, "\n         sizeof(buf_ptr) is  %d", buf_ptr_size);
     // memcpy dest source size:
+
+    lcl_printf();
+/*
     buf_ptr = * & buffer; // way overdone - a test only.
     memcpy (buffering, buf_ptr, sizeof buffer );
     // printf(buf_ptr);
     print_buffer();
-
+*/
 
     sprintf(buf_ptr, "%s", "\n         sizeof(buffer)  is ");
+
+    lcl_printf();
+    /*
     buf_ptr = * & buffer;
     memcpy(buffering, buf_ptr, sizeof buffer);
     print_buffer();
+    */
 
     // extra copy:
     buf_size = sizeof(buffer); // captures "abc\000" size
 
     sprintf(buf_ptr, "%d\n", buf_size); // related to string length, possibly
-    buf_ptr = * & buffer;
+    lcl_printf();
+    /* buf_ptr = * & buffer;
     memcpy(buffering,buf_ptr, sizeof buffer);
     print_buffer(); // 32
-
+    */
     // printf(buf_ptr);
 
     sprintf(buf_ptr, "%s", "         strlen(buffer)  is ");
-    buf_ptr = * & buffer;
+    lcl_printf();
+    /* buf_ptr = * & buffer;
     memcpy(buffering, buf_ptr, sizeof buffer);
     print_buffer();
+    */
 
     sprintf(buf_ptr, " %d\n", buf_len); // related to string length, possibly
-    buf_ptr = * & buffer;
+    lcl_printf();
+    /* buf_ptr = * & buffer;
     memcpy(buffering, buf_ptr, sizeof buffer);
     print_buffer();
+    */
 
     // printf(buf_ptr);
 
     uint8_t adrs;
     adrs = (uint8_t) & buf_ptr;
 
-    sprintf(buf_ptr, "%s", "adrs (& buf_ptr) in hex is      ");
-    buf_ptr = * & buffer;
+    sprintf(buf_ptr, "%s", "adrs (& buf_ptr) in hex is        ");
+    lcl_printf();
+    /* buf_ptr = * & buffer;
     memcpy(buffering, buf_ptr, sizeof buffer);
     print_buffer();
-
+    */
     // print the buffer's address in ram
     sprintf(buf_ptr, "0x%.8X\n", adrs);
+    lcl_printf();
+    /*
     buf_ptr = * & buffer;
     memcpy(buffering, buf_ptr, sizeof buffer);
     print_buffer();
-
+    */
     // printf(buf_ptr);
 
-/*
-    printf("%s", "\nadrs (& buf_ptr) in decimal is ");
-    sprintf(buf_ptr, "%.11u\n\n", adrs);
-    printf(buf_ptr);
-*/
+
+    sprintf(buf_ptr, "%s", "adrs (& buf_ptr) in decimal is  ");
+    lcl_printf();
+
+    sprintf(buf_ptr, "%c%.11u\n\n", ' ', adrs);
+    lcl_printf();
 }
 
 #if 0
@@ -575,4 +593,4 @@ void loop() {
   readword();
   runword();
 }
-/* END */
+/* END */ /* UNTESTED EDIT */
