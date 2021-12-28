@@ -9,8 +9,8 @@
 
 void setup() {
   // put your setup code here, to run once:
-  Serial.begin(115200);
-  Serial.println("Hello, Raspberry Pi Pico!");
+  Serial1.begin(115200);
+  Serial1.println("Hello, Raspberry Pi Pico!");
 }
 
 void loop() {
@@ -157,15 +157,15 @@ void negate() {
 /* destructively display top of stack, decimal */
 NAMED(_dot, ".");
 void dot() {
-  Serial.print(pop());
-  Serial.print(" ");
+  Serial1.print(pop());
+  Serial1.print(" ");
 }
 
 /* destructively display top of stack, hex */
 NAMED(_dotHEX, ".h");
 void dotHEX() {
-  Serial.print(0xffff & pop(), HEX);
-  Serial.print(" ");
+  Serial1.print(0xffff & pop(), HEX);
+  Serial1.print(" ");
 }
 
 /* display whole stack, hex */
@@ -242,20 +242,20 @@ void dumpRAM() {
   int p = pop();
   ram = (char*)p;
   sprintf(buffer, "%4x", p);
-  Serial.print(buffer);
-  Serial.print("   ");
+  Serial1.print(buffer);
+  Serial1.print("   ");
   for (int i = 0; i < 16; i++) {
     char c = *ram++;
     sprintf(buffer, " %2x", (c & 0xff));
-    Serial.print(buffer);
+    Serial1.print(buffer);
   }
   ram = (char*)p;
-  Serial.print("   ");
+  Serial1.print("   ");
   for (int i = 0; i < 16; i++) {
     buffer[0] = *ram++;
     if (buffer[0] > 0x7f || buffer[0] < ' ') buffer[0] = '.';
     buffer[1] = '\0';
-    Serial.print(buffer);
+    Serial1.print(buffer);
   }
   push(p + 16);
 }
@@ -264,7 +264,7 @@ void dumpRAM() {
 NAMED(_dumpr, "dump");
 void rdumps() {
   for (int i = 0; i < 16; i++) {
-    Serial.println();
+    Serial1.println();
     dumpRAM();
   }
 }
@@ -326,8 +326,8 @@ const int entries = sizeof dictionary / sizeof dictionary[0];
 void words() {
   for (int i = entries - 1; i >= 0; i--) {
     strcpy(namebuf, dictionary[i].name);
-    Serial.print(namebuf);
-    Serial.print(" ");
+    Serial1.print(namebuf);
+    Serial1.print(" ");
   }
 }
 
@@ -358,13 +358,13 @@ int number() {
 char ch;
 
 void ok() {
-  if (ch == '\r') Serial.println("ok");
+  if (ch == '\r') Serial1.println("ok");
 }
 
 /* Incrementally read command line from serial port */
 byte reading() {
-  if (!Serial.available()) return 1;
-  ch = Serial.read();
+  if (!Serial1.available()) return 1;
+  ch = Serial1.read();
   if (ch == '\r') return 1;
   if (ch == '\n') return 0;
   if (ch == ' ') return 0;
@@ -381,8 +381,8 @@ void readword() {
   pos = 0;
   tib[0] = 0;
   while (reading());
-  Serial.print(tib);
-  Serial.print(" ");
+  Serial1.print(tib);
+  Serial1.print(" ");
 }
 
 /* Run a word via its name */
@@ -398,17 +398,17 @@ void runword() {
     ok();
     return;
   }
-  Serial.println("?");
+  Serial1.println("?");
 }
 
 /* Arduino main loop */
 
 void setup() {
-  Serial.begin(115200);
-  // while (!Serial);
-  Serial.println ("Forth-like interpreter:");
+  Serial1.begin(115200);
+  // while (!Serial1);
+  Serial1.println ("Forth-like interpreter:");
   words();
-  Serial.println();
+  Serial1.println();
 }
 
 void loop() {
