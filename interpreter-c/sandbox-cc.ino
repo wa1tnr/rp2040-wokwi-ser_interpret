@@ -1,3 +1,9 @@
+// liking this 18:50:32 UTC
+
+#include <unistd.h>
+
+
+
 // good interim edit 18:33z
 
 #if 0
@@ -27,7 +33,6 @@ Tue 28 Dec 17:41:07 UTC 2021
 
 /* test program includes */
 #include <stdio.h>
-#include <unistd.h>
 #include <stdint.h>
 #include <string.h> // strlen only
 
@@ -476,20 +481,15 @@ int test_program_a(void) {
     print_buffer();
 
 
-    sprintf(buffering, "%c", '\'');
+    sprintf(buffering, "%c%c", '\'', ' ');
     print_buffer();
-
-
 
     sprintf(buffering, "%s ", " is the buffer contents");
     print_buffer();
 
-
-
     // gottem = write(1, buf_ptr, sizeof(buf_ptr));
 
-    // gottem = 1;
-    sprintf(buf_ptr, "\n           sizeof(buf_ptr) is  %d", buf_ptr_size);
+    sprintf(buf_ptr, "\n         sizeof(buf_ptr) is  %d", buf_ptr_size);
     // memcpy dest source size:
     buf_ptr = * & buffer; // way overdone - a test only.
     memcpy (buffering, buf_ptr, sizeof buffer );
@@ -497,15 +497,23 @@ int test_program_a(void) {
     print_buffer();
 
 
-    sprintf(buf_ptr, "%s", "\n           sizeof(buffer)  is ");
+    sprintf(buf_ptr, "%s", "\n         sizeof(buffer)  is ");
     buf_ptr = * & buffer;
     memcpy(buffering, buf_ptr, sizeof buffer);
     print_buffer();
+
+
+    // extra copy:
+    buf_size = sizeof(buffer); // captures "abc\000" size
+
 
     sprintf(buf_ptr, "%d\n", buf_size); // related to string length, possibly
     buf_ptr = * & buffer;
     memcpy(buffering,buf_ptr, sizeof buffer);
     print_buffer();
+
+
+
 
     // printf(buf_ptr);
 
