@@ -1,5 +1,21 @@
 // Tue 28 Dec 12:12:42 UTC 2021
 
+/* boilerplate .INO program wokwi:
+
+// https://wokwi.com/arduino/new?template=pi-pico
+
+void setup() {
+  // put your setup code here, to run once:
+  Serial1.begin(115200);
+  Serial1.println("Hello, Raspberry Pi Pico!");
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  delay(1); // this speeds up the simulation
+}
+*/
+
 UNTESTED - this comment breaks compiler on purpose ;)
 
 /* Tiny interpreter,
