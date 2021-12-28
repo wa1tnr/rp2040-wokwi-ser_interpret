@@ -1,12 +1,25 @@
 // kerbalfourpair
-// Tue 28 Dec 21:08:37 UTC 2021
-
+// TESTED and LOOKS GOOD
+// Tue 28 Dec 21:15:30 UTC 2021
 
 #if 0
 
-    Tue 28 Dec 17:41:07 UTC 2021
+for wokwi Uno simulator:
 
-    ok 640 dump \ dumps the terminal input buffer area
+    [ https://wokwi.com/arduino/new?template=arduino-uno ]
+
+upstream code - primary author:
+
+    [ https://github.com/CharleyShattuck/Feather-M0-interpreter ]
+
+
+    Tiny interpreter, similar to myforth's Standalone Interpreter
+
+    This example code is in the public domain
+
+
+
+    ok 640 dump \ dumps the terminal input buffer area << outdated info
 
     test with:
     ok 199 198 197 196 640 dump cr cr .s cr cr
@@ -15,21 +28,11 @@
 
     Note: the 'ok' word was just updated - did not see the ENTER keypress, prior.
 
-    for wokwi Uno simulator:
-
-    [ https://wokwi.com/arduino/new?template=arduino-uno ]
-
-    upstream code - primary author:
-
-    [ https://github.com/CharleyShattuck/Feather-M0-interpreter ]
-
-    Tiny interpreter, similar to myforth's Standalone Interpreter
-
-    This example code is in the public domain
-
 #endif
 
 #include <unistd.h>
+
+/* print macro - hide the details: */
 
 #define lcl_printf() \
     buf_ptr = * & buffer; \
@@ -37,6 +40,9 @@
     print_buffer();
 
 /* test program includes */
+
+/* TODO suppress includes and test */
+
 #include <stdio.h>
 #include <stdint.h>
 #include <string.h> // strlen only
@@ -60,12 +66,14 @@ int p = 0;
 
 /* TOS is Top Of Stack */
 #define TOS stack[p]
+
 /* NAMED creates a string in flash */
 #define NAMED(x, y) const char x[]=y
 
 /* Terminal Input Buffer for interpreter */
 const byte maxtib = 16;
 char tib[maxtib];
+
 /* buffer required for strings read from flash */
 char namebuf[maxtib];
 byte pos;
@@ -297,8 +305,77 @@ void rdumps() {
 /* ******************************************** */
 /* Beginning of application words */
 
+NAMED(_testpa, "testpa");
+void testpa(void) {
+      newline();
+      space_it();
+      
+      char buffer[48]; // 32 also 64
+      char* buf_ptr;
 
+      buffer[0] = 'a';
+      buffer[1] = 'b';
+      buffer[2] = 'c';
+      buffer[3] = '\000';
 
+      buf_ptr = buffer;
+
+      int buf_size, buf_ptr_size;
+
+      buf_size = sizeof(buffer); // captures "abc\000" size
+      buf_ptr_size = sizeof(buf_ptr);
+
+      int buf_len = strlen(buffer);
+
+      size_t gottem;
+
+      sprintf(buffering, "%c", '\'');
+      print_buffer();
+
+      memcpy(buffering, buf_ptr, sizeof buffer);
+      print_buffer();
+
+      sprintf(buffering, "%c%c", '\'', ' ');
+      print_buffer();
+
+      sprintf(buffering, "%s ", " is the buffer contents");
+      print_buffer();
+
+      sprintf(buf_ptr, "\n         sizeof(buf_ptr) is  %d", buf_ptr_size);
+
+      lcl_printf();
+
+      sprintf(buf_ptr, "%s", "\n         sizeof(buffer)  is ");
+
+      lcl_printf();
+
+      buf_size = sizeof(buffer); // captures "abc\000" size
+
+      sprintf(buf_ptr, "%d\n", buf_size); // related to string length, possibly
+      lcl_printf();
+
+      sprintf(buf_ptr, "%s", "         strlen(buffer)  is ");
+      lcl_printf();
+
+      sprintf(buf_ptr, " %d\n", buf_len); // related to string length, possibly
+      lcl_printf();
+
+      uint8_t adrs;
+      adrs = (uint8_t) & buf_ptr;
+
+      sprintf(buf_ptr, "%s", "adrs (& buf_ptr) in hex is        ");
+      lcl_printf();
+
+      // print the buffer's address in ram
+      sprintf(buf_ptr, "0x%.8X\n", adrs);
+      lcl_printf();
+
+      sprintf(buf_ptr, "%s", "adrs (& buf_ptr) in decimal is  ");
+      lcl_printf();
+
+      sprintf(buf_ptr, "%c%.11u\n\n", ' ', adrs);
+      lcl_printf();
+}
 
 /* End of application words */
 /* ******************************************** */
@@ -341,6 +418,7 @@ const entry dictionary[] = {
     {_input_pullup, input_pullup},
     {_wiggle, wiggle},
     {_dumpr, rdumps},
+    {_testpa, testpa},
     {_speed, speed}
 };
 
@@ -445,78 +523,6 @@ void newline(void) {
       print_buffer();
 }
 
-int test_program_a(void) {
-      newline();
-      space_it();
-      
-      char buffer[48]; // 32 also 64
-      char* buf_ptr;
-
-      buffer[0] = 'a';
-      buffer[1] = 'b';
-      buffer[2] = 'c';
-      buffer[3] = '\000';
-
-      buf_ptr = buffer;
-
-      int buf_size, buf_ptr_size;
-
-      buf_size = sizeof(buffer); // captures "abc\000" size
-      buf_ptr_size = sizeof(buf_ptr);
-
-      int buf_len = strlen(buffer);
-
-      size_t gottem;
-
-
-      sprintf(buffering, "%c", '\'');
-      print_buffer();
-
-      memcpy(buffering, buf_ptr, sizeof buffer);
-      print_buffer();
-
-      sprintf(buffering, "%c%c", '\'', ' ');
-      print_buffer();
-
-      sprintf(buffering, "%s ", " is the buffer contents");
-      print_buffer();
-
-      sprintf(buf_ptr, "\n         sizeof(buf_ptr) is  %d", buf_ptr_size);
-
-      lcl_printf();
-
-      sprintf(buf_ptr, "%s", "\n         sizeof(buffer)  is ");
-
-      lcl_printf();
-
-      buf_size = sizeof(buffer); // captures "abc\000" size
-
-      sprintf(buf_ptr, "%d\n", buf_size); // related to string length, possibly
-      lcl_printf();
-
-      sprintf(buf_ptr, "%s", "         strlen(buffer)  is ");
-      lcl_printf();
-
-      sprintf(buf_ptr, " %d\n", buf_len); // related to string length, possibly
-      lcl_printf();
-
-      uint8_t adrs;
-      adrs = (uint8_t) & buf_ptr;
-
-      sprintf(buf_ptr, "%s", "adrs (& buf_ptr) in hex is        ");
-      lcl_printf();
-
-      // print the buffer's address in ram
-      sprintf(buf_ptr, "0x%.8X\n", adrs);
-      lcl_printf();
-
-      sprintf(buf_ptr, "%s", "adrs (& buf_ptr) in decimal is  ");
-      lcl_printf();
-
-      sprintf(buf_ptr, "%c%.11u\n\n", ' ', adrs);
-      lcl_printf();
-}
-
 
 void setup() {
     Serial.begin(9600);
@@ -525,7 +531,7 @@ void setup() {
     words();
     Serial.println(" ");
     Serial.println("NOT_READY");
-    test_program_a();
+    testpa(); // TEST PROGRAM
     Serial.println("READY");
 }
 
